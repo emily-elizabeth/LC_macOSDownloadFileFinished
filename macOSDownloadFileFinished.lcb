@@ -1,0 +1,35 @@
+library macos.downloadfilefinished
+
+use com.livecode.foreign
+use com.livecode.objc
+
+metadata version is "1.0.0"
+metadata author is "Emily-Elizabeth Howard"
+metadata title is "macOS Download File Finished"
+
+
+
+--------------------- foreign handlers
+
+private foreign handler NSDistributedNotificationCenterDefaultCenter() returns ObjcId binds to "objc:NSDistributedNotificationCenter.+defaultCenter"
+private foreign handler NSDistributedNotificationCenterPostNotificationNameObject(in defaultCenter as ObjcId, in notificationName as ObjcId, in notificationObject as ObjcId) returns nothing binds to "objc:NSDistributedNotificationCenter.-postNotificationName:object:"
+
+
+
+--------------------- Public handlers
+
+
+
+public unsafe handler macOSDownloadFileFinished(in pathToFile as String) returns nothing
+	if (the operating system is "mac") then
+		variable defaultCenter as ObjcId
+		put NSDistributedNotificationCenterDefaultCenter() into defaultCenter
+
+		NSDistributedNotificationCenterPostNotificationNameObject(defaultCenter, StringToNSString("com.apple.DownloadFileFinished"), StringToNSString(pathToFile))
+	end if
+end handler
+
+
+
+
+end library

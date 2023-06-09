@@ -1,0 +1,11 @@
+import module macos.downloadfilefinished
+  use com.livecode.objc
+  use com.livecode.arithmetic
+  use com.livecode.binary
+  use com.livecode.list
+  use com.livecode.logic
+  use com.livecode.string
+  use com.livecode.type
+  use com.livecode.system
+  unsafe handler macOSDownloadFileFinished(in pathToFile as String) returns nothing
+end module
